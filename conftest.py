@@ -1,0 +1,33 @@
+import pytest
+import pygame
+from game import Game
+from grid import Grid
+from blocks import TBlock
+import pygame
+
+
+@pytest.fixture(scope="function")
+def game_instance(monkeypatch):
+    monkeypatch.setattr(pygame.mixer, "Sound", lambda x: DummySound())
+    monkeypatch.setattr(pygame.mixer.music, "load", lambda x: None)
+    monkeypatch.setattr(pygame.mixer.music, "play", lambda x: None)
+
+    return Game()
+
+class DummySound:
+    def play(self): pass
+
+@pytest.fixture
+def empty_grid():
+    return Grid()
+
+@pytest.fixture
+def full_row_grid():
+    grid = Grid()
+    for col in range(grid.num_cols):
+        grid.grid[19][col] = 1  # שורה מלאה בתחתית
+    return grid
+
+@pytest.fixture
+def t_block():
+    return TBlock()
