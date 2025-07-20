@@ -3,7 +3,6 @@ def test_tblock_rotation_cycles(t_block):
     for _ in range(4):
         t_block.rotate()
     cycled_positions = t_block.get_cell_positions()
-    # אחרי 4 סיבובים זה אמור לחזור למצב ההתחלתי
     for p1, p2 in zip(original_positions, cycled_positions):
         assert p1.row == p2.row
         assert p1.column == p2.column
